@@ -6,36 +6,35 @@ reddit = praw.Reddit('bot1')
 #FOR SUBREDDIT CALLS
 #subreddit = reddit.subreddit("pythonforengineers")
 
-#GET USERNAME TO INVESTIGATE (i.e. uname2i) AND CREATE suspect INSTANCE
+#GET USERNAME TO INVESTIGATE (i.e. uname3i) AND CREATE suspect INSTANCE
 #uname2i = input("Give me a username to investigate: ")
 #suspect = reddit.redditor(uname2i)
 
 #testing
-suspect = reddit.redditor('utvillans')
+suspect = reddit.redditor('reflection3927')
 
 #GET NUMBER OF SUBMISSIONS/POSTS (postcounter)
 postcounter = 0
-submissions = suspect.submissions.new(limit=10)
+submissions = suspect.submissions.new(limit=None)
 for submission in submissions:
     postcounter += 1
 
+#GET SUSPECT POST SUBREDDIT (suspostsubreds) COUNTS
+suspostsubreds = []
+for submission in suspect.submissions.new(limit=None):
+    suspostsubreds.append(submission.subreddit.display_name)
+post_subreds = Counter(suspostsubreds)
+
 #GET NUMBER OF COMMENTS (commentcounter)
 commentcounter = 0
-for comment in suspect.comments.new(limit=10):
+for comment in suspect.comments.new(limit=None):
     commentcounter += 1
-
-#PREVIOUS COMMENT COUNTER - GETS COMMENT TEXT
-#for comment in suspect.comments.new(limit=None):
-#    onelinecomment = comment.body.split("\n", 1)[0][:79]
-#    commentlist.append(onelinecomment)
-#COMMENTLIST POST COUNT SANITY CHECK
-#print(commentlist[0])
 
 #GET SUSPECT COMMENT SUBREDDIT (suscomsubreds) COUNTS
 suscomsubreds = []
-for comment in suspect.comments.new(limit=10):
+for comment in suspect.comments.new(limit=None):
     suscomsubreds.append(comment.subreddit.display_name)
-counted_subreds = Counter(suscomsubreds)
+com_subreds = Counter(suscomsubreds)
 #top5subreds = counted_subreds.most_common(5)
 
 #feedback
@@ -44,9 +43,16 @@ counted_subreds = Counter(suscomsubreds)
 #print(f'top5subreds: {top5subreds}')
 
 #PRINT RESULTS
-print(f"{suspect} has {suspect.link_karma} karma.")
-print(f"{suspect} has {postcounter} submissions.")
-print(f"{suspect} has {commentcounter} comments.")
-print(f"{suspect}'s five most frequently commented subreddits:")
-for subreddit, count in counted_subreds.most_common(5):
+#PRINT POST AND COMMENT KARMA
+print(f"{suspect} has {suspect.link_karma} post karma.")
+print(f"{suspect} has {suspect.comment_karma} comment karma.")
+
+print(f"{suspect} has {postcounter} post submissions in {len(post_subreds)}\
+ unique subreddits. Five most posted-in subs:")
+for subreddit, count in post_subreds.most_common(5):
     print(f"{subreddit}: {count} posts")
+
+print(f"{suspect} has {commentcounter} comments in {len(com_subreds)}\
+ unique subreddits. Five most commented subs:")
+for subreddit, count in com_subreds.most_common(5):
+    print(f"{subreddit}: {count} comments")
