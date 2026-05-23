@@ -1,0 +1,8 @@
+Initially:
+bot runs on command
+bot targets a given post
+
+bot pulls username, karma, post/comment count, top 5 posted subs,
+    number of posts with positive karma vs negative karma,
+    most common words longer than 5 characters, most common strings of words?,
+    

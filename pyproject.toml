@@ -1,0 +1,18 @@
+[project]
+name = "columbot"
+version = "0.1.0"
+description = "Reddit bot detection via behavioral signal analysis"
+requires-python = ">=3.9"
+dependencies = ["praw>=7.7,<8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[project.scripts]
+columbot = "columbot.__main__:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"

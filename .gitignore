@@ -1,0 +1,11 @@
+praw.ini
+praw.ini~
+.praw.ini.un~
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
