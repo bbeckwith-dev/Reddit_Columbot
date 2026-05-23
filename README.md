@@ -93,14 +93,6 @@ python -m columbot --limit 500 someuser123
 =======================================
 ```
 
-## Testing
-
-```bash
-source .venv/bin/activate
-pytest tests/ -v        # 51 tests, all mocked (no Reddit API needed)
-ruff check columbot/    # lint
-```
-
 ## Limitations
 
 - Reddit's API only returns the most recent ~1000 posts and comments per user. Older activity or deleted content is invisible.
